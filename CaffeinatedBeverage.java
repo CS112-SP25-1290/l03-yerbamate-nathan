@@ -23,7 +23,11 @@ public class CaffeinatedBeverage
     }
 
     public void setOunces(int ounces) {
-        this.ounces = ounces;
+        if(validateNumber(ounces, 0)) {
+            this.ounces = ounces;
+        } else {
+            System.out.println("Ounces must be greater than 0.");
+        }
     }
 
     public double getPrice() {
@@ -31,7 +35,11 @@ public class CaffeinatedBeverage
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        if(validateNumber(price, 0)) {
+            this.price = price;
+        } else {
+            System.out.println("Price must be greater than $0.");
+        }
     }
 
     @Override
@@ -41,5 +49,23 @@ public class CaffeinatedBeverage
         return this.ounces == that.ounces &&
                 Double.compare(this.price, that.price) == 0 &&
                this.name.equals(that.name);
+    }
+
+    public boolean validateNumber(double valueToCheck, int limit) {
+        return valueToCheck >= limit;
+    }
+
+    public boolean sip(int ouncesToSip) {
+        if(ouncesToSip - ounces >= 0) {
+            setOunces(ounces - ouncesToSip);
+            return true;
+        } else {
+            setOunces(0);
+            return false;
+        }
+    }
+
+    public String toString() {
+        return "Caffeinated Beverage: " + this.getName() + ", " + this.getOunces() + ", $" + getPrice();
     }
 }
